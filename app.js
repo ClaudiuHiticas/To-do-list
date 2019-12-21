@@ -34,18 +34,20 @@ app.get('/getTodos', (req, res) =>{
     });
 });
 
-//Update
-app.put('/:id', (req, res) =>{
+// update
+app.put('/:id',(req,res)=>{
+    // Primary Key of Todo Document we wish to update
     const todoID = req.params.id;
+    // Document used to update
     const userInput = req.body;
-
+    // Find Document By ID and Update
     db.getDB().collection(collection).findOneAndUpdate({_id : db.getPrimaryKey(todoID)},{$set : {todo : userInput.todo}},{returnOriginal : false},(err,result)=>{
         if(err)
             console.log(err);
         else{
             res.json(result);
-        }
-    })
+        }      
+    });
 });
 
 //create
@@ -101,8 +103,8 @@ db.connect((err)=>{
         process.exit(1);
     }
     else{
-        app.listen(3000,()=>{
-            console.log('connected to database, app listening on port 3000');
+        app.listen(5000,()=>{
+            console.log('connected to database, app listening on port 5000');
         });
     }
 });
